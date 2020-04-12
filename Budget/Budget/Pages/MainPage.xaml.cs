@@ -1,5 +1,6 @@
 ﻿using Budget.Config;
 using Budget.Models;
+using Budget.Pages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,8 +28,10 @@ namespace Budget
 
             listView.ItemsSource = payments;
 
-            monthlyTotal.Text = $"{payments.Select(p => p.Amount).Sum():C2}";
-            dailyAverage.Text = $"{GetDailyAverage(payments):C2}";
+            decimal dailyAverage = this.GetDailyAverage(payments);
+            dailyAverageLabel.Text = this.ToCurrencyString(dailyAverage);
+            monthlyTotal.Text = this.ToCurrencyString(payments.Select(p => p.Amount).Sum());
+            amountSavedLabel.Text = this.ToCurrencyString(this.GetAmountSaved(dailyAverage));
         }
 
         async void OnPaymentAddedClicked(object sender, EventArgs e)
@@ -40,6 +43,11 @@ namespace Budget
                     BindingContext = new Payment { Date = DateTime.UtcNow, },
                 }
             );
+        }
+
+        async void OnHistoryClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new HistoryPage());
         }
 
         async void OnSettingsClicked(object sender, EventArgs e)
@@ -75,6 +83,16 @@ namespace Budget
         private decimal GetDailyAverage(List<Payment> payments)
         {
             return payments.Select(p => p.Amount).Sum() / DateTime.Now.Day;
+        }
+
+        private decimal GetAmountSaved(decimal dailyAverage)
+        {
+            return (Settings.DailyAlloc - dailyAverage) * DateTime.Now.Day;
+        }
+
+        private string ToCurrencyString(decimal value)
+        {
+            return $"{value:C2}";
         }
     }
 }

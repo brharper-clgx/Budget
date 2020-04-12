@@ -17,17 +17,20 @@
                FontSize="Medium" />
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+            <Label Text="Daily Average:" FontAttributes="Bold" />
+            <Label x:Name="dailyAverageLabel" FontAttributes="Bold" />
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+            <Label Text="Saved:" TextColor="DarkSeaGreen" />
+            <Label x:Name="amountSavedLabel" TextColor="DarkSeaGreen" />
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
             <Label Text="Montly Total:"></Label>
             <Label x:Name="monthlyTotal" />
         </StackLayout>
         
-        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
-            <Label Text="Daily Average:"></Label>
-            <Label x:Name="dailyAverage" />
-        </StackLayout>
-        
-        
-
         <Label Text="Transactions"
                FontSize="Medium" />
         <ListView x:Name="listView"
@@ -56,7 +59,18 @@
         </ListView>
 
         <Button Text="+"
-                Clicked="OnPaymentAddedClicked"/>
+                Clicked="OnPaymentAddedClicked"
+                TextColor="AntiqueWhite"
+                FontSize="Medium"
+                FontAttributes="Bold"
+                BackgroundColor="DodgerBlue" />
+
+        <Button Text="See Full Transaction History"
+                Clicked="OnHistoryClicked"
+                TextColor="CornflowerBlue"
+                FontSize="Small"
+                FontAttributes="Italic"
+                BackgroundColor="White" />
     </StackLayout>
 
 </ContentPage>
