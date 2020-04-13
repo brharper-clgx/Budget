@@ -46,6 +46,11 @@ namespace Budget.Pages
                 });
         }
 
+        async void OnHistoryClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new HistoryPage());
+        }
+
         private decimal GetDailyAverage(IEnumerable<Payment> payments, DateTime date)
         {
             return payments.Select(p => p.Amount).Sum() / DateTime.DaysInMonth(date.Year, date.Month);

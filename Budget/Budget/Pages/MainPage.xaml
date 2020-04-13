@@ -22,15 +22,15 @@
         </StackLayout>
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+            <Label Text="Total Spent:"></Label>
+            <Label x:Name="monthlyTotal" />
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
             <Label Text="Saved:" TextColor="DarkSeaGreen" />
             <Label x:Name="amountSavedLabel" TextColor="DarkSeaGreen" />
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
-            <Label Text="Montly Total:"></Label>
-            <Label x:Name="monthlyTotal" />
-        </StackLayout>
-        
         <Label Text="Transactions"
                FontSize="Medium" />
         <ListView x:Name="listView"
@@ -65,8 +65,8 @@
                 FontAttributes="Bold"
                 BackgroundColor="DodgerBlue" />
 
-        <Button Text="See Full Transaction History"
-                Clicked="OnHistoryClicked"
+        <Button Text="See Monthly Summaries"
+                Clicked="OnSummariesClicked"
                 TextColor="CornflowerBlue"
                 FontSize="Small"
                 FontAttributes="Italic"

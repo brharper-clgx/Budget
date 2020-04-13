@@ -25,11 +25,6 @@ namespace Budget.Pages
             listView.ItemsSource = await App.Database.GetPayments();
         }
 
-        async void OnSummariesClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new SummariesPage());
-        }
-
         async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)

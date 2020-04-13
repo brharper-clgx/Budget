@@ -45,9 +45,9 @@ namespace Budget
             );
         }
 
-        async void OnHistoryClicked(object sender, EventArgs e)
+        async void OnSummariesClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new HistoryPage());
+            await Navigation.PushAsync(new SummariesPage());
         }
 
         async void OnSettingsClicked(object sender, EventArgs e)

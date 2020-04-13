@@ -33,12 +33,6 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Text="See Monthly Summaries"
-                Clicked="OnSummariesClicked"
-                TextColor="CornflowerBlue"
-                FontSize="Small"
-                FontAttributes="Italic"
-                BackgroundColor="White" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

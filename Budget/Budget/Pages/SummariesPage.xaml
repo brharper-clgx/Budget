@@ -6,44 +6,54 @@
              mc:Ignorable="d"
              x:Class="Budget.Pages.SummariesPage">
     <ContentPage.Content>
-        <ListView x:Name="listView"
+
+        <StackLayout>
+            <ListView x:Name="listView"
               Margin="20">
-            <ListView.Header>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <ListView.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Text="Month" FontAttributes="Bold" />
-                    <Label Grid.Column="1" Text="Total" FontAttributes="Bold" />
-                    <Label Grid.Column="2" Text="Saved" FontAttributes="Bold" />
-                </Grid>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="Month" FontAttributes="Bold" />
+                        <Label Grid.Column="1" Text="Total" FontAttributes="Bold" />
+                        <Label Grid.Column="2" Text="Saved" FontAttributes="Bold" />
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                            <Label Grid.Column="0" Text="{Binding MonthYear}"/>
-                            <Label Grid.Column="1" Text="{Binding TotalSpent, StringFormat='{0:C2}'}" HorizontalOptions="Start" />
-                            <Label Grid.Column="2" Text="{Binding TotatlSaved, StringFormat='{0:C2}'}" HorizontalOptions="Start" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                <Label Grid.Column="0" Text="{Binding MonthYear}"/>
+                                <Label Grid.Column="1" Text="{Binding TotalSpent, StringFormat='{0:C2}'}" HorizontalOptions="Start" />
+                                <Label Grid.Column="2" Text="{Binding TotatlSaved, StringFormat='{0:C2}'}" HorizontalOptions="Start" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Text="See Full Transaction History"
+                Clicked="OnHistoryClicked"
+                TextColor="CornflowerBlue"
+                FontSize="Small"
+                FontAttributes="Italic"
+                BackgroundColor="White" />
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
