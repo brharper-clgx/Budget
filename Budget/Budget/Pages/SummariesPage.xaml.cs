@@ -36,15 +36,14 @@ namespace Budget.Pages
         {
             base.OnAppearing();
 
-            var paymentsByMonth = (await App.Database.GetPayments()).GroupBy(p => p.Date.Month);
-            var paymentSummaries = paymentsByMonth
+            listView.ItemsSource = (await App.Database.GetPayments())
+                .Where(p => this.IsNotCurrentMonth(p.Date))
+                .GroupBy(p => p.Date.Month)
                 .Select(pg => new MonthlySummary {
-                    Month = monthMap[pg.Key],
+                    MonthYear = $"{monthMap[pg.Key]} {pg.First().Date.Year}",
                     TotalSpent = pg.Select(p => p.Amount).Sum(),
                     TotatlSaved = this.GetAmountSaved(pg.Select(p => p))
                 });
-
-            listView.ItemsSource = paymentSummaries;
         }
 
         private decimal GetDailyAverage(IEnumerable<Payment> payments, DateTime date)
@@ -57,6 +56,11 @@ namespace Budget.Pages
             DateTime date = payments.First().Date;
             decimal dailyAverage = this.GetDailyAverage(payments, date);
             return (Settings.DailyAlloc - dailyAverage) * DateTime.DaysInMonth(date.Year, date.Month);
+        }
+
+        private bool IsNotCurrentMonth(DateTime date)
+        {
+            return date.Month != DateTime.Now.Month || date.Year != DateTime.Now.Year;
         }
     }
 }

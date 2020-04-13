@@ -8,6 +8,22 @@
     <ContentPage.Content>
         <ListView x:Name="listView"
               Margin="20">
+            <ListView.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="Month" FontAttributes="Bold" />
+                    <Label Grid.Column="1" Text="Total" FontAttributes="Bold" />
+                    <Label Grid.Column="2" Text="Saved" FontAttributes="Bold" />
+                </Grid>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -17,17 +33,13 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <Label Grid.Column="0" Text="{Binding Month}"/>
-                            <Label Grid.Column="1" Text="Total: " HorizontalOptions="End" />
-                            <Label Grid.Column="2" Text="{Binding TotalSpent, StringFormat='{0:C2}'}" HorizontalOptions="Start" />
-                            <Label Grid.Column="3" Text="Saved: " HorizontalOptions="End" />
-                            <Label Grid.Column="4" Text="{Binding TotatlSaved, StringFormat='{0:C2}'}" HorizontalOptions="Start" />
+                            <Label Grid.Column="0" Text="{Binding MonthYear}"/>
+                            <Label Grid.Column="1" Text="{Binding TotalSpent, StringFormat='{0:C2}'}" HorizontalOptions="Start" />
+                            <Label Grid.Column="2" Text="{Binding TotatlSaved, StringFormat='{0:C2}'}" HorizontalOptions="Start" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
