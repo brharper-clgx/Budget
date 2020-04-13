@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Budget.Pages.SummariesPage">
+    <ContentPage.Content>
+        <ListView x:Name="listView"
+              Margin="20">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Text="{Binding Month}"/>
+                            <Label Grid.Column="1" Text="Total: " HorizontalOptions="End" />
+                            <Label Grid.Column="2" Text="{Binding TotalSpent, StringFormat='{0:C2}'}" HorizontalOptions="Start" />
+                            <Label Grid.Column="3" Text="Saved: " HorizontalOptions="End" />
+                            <Label Grid.Column="4" Text="{Binding TotatlSaved, StringFormat='{0:C2}'}" HorizontalOptions="Start" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
