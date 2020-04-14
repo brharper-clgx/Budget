@@ -1,8 +1,7 @@
-export enum PaymentType
+export enum PaymentCategory
 {
-    Undefined = 0,
-    Restaurant = 1,
-    Grocery = 2,
-    Entertainment = 3,
-    Utility = 4,
+    Restaurant,
+    Grocery,
+    Entertainment,
+    Utility,
 }

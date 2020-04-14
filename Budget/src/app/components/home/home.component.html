@@ -7,7 +7,14 @@
   </ion-header>
 
   <div id="container">
-    <strong class="capitalize">Home</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Amount spent this month</ion-card-subtitle>
+        <ion-card-title>{{monthLabel}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #barChart></canvas>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>

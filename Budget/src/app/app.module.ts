@@ -12,6 +12,8 @@ import { BudgetService } from './services/budget.service';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MockBudgetService } from './services/mocks/budget.service.mock';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, HeaderComponent, ProfileComponent],
@@ -25,8 +27,18 @@ import { ProfileComponent } from './components/profile/profile.component';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    BudgetService,
+    {
+      provide: BudgetService,
+      deps: [],
+      useFactory: () => {
+        if (environment.mock) {
+          return new MockBudgetService();
+        } else {
+          return new BudgetService();
+        }
+      }
+    }, ,
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

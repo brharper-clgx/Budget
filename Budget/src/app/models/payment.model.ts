@@ -1,7 +1,7 @@
-import { PaymentType } from '../enums/payment-category.enum';
+import { PaymentCategory } from '../enums/payment-category.enum';
 
 export class Payment
 {
     public amount: number;
-    public category: PaymentType;
+    public category: PaymentCategory;
 }
