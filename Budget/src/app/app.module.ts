@@ -16,16 +16,19 @@ import { MockBudgetService } from './services/mocks/budget.service.mock';
 import { environment } from 'src/environments/environment';
 import { MomentDatePipe } from './pipes/moment-date.pipe';
 import { FormsModule } from '@angular/forms';
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
-    AppComponent, 
-    HomeComponent, 
-    HeaderComponent, 
+    AppComponent,
+    MenuComponent,
+    HomeComponent,
+    HeaderComponent,
     ProfileComponent,
     MomentDatePipe,
   ],
-  entryComponents: [HomeComponent],
+  entryComponents: [
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -46,7 +49,7 @@ import { FormsModule } from '@angular/forms';
           return new BudgetService();
         }
       }
-    }, ,
+    },
   ],
   bootstrap: [AppComponent]
 })
