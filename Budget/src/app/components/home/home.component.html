@@ -7,13 +7,15 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <!-- Month's spending pie chart -->
+  <div id="container" *ngIf="currentMonthStanding">
+    <!--Available Budget progress bar -->
     <ion-card-header>
-      <ion-card-subtitle>Amount spent this month</ion-card-subtitle>
-      <ion-card-title>{{monthLabel}}</ion-card-title>
+      <ion-card-subtitle>Available Budget</ion-card-subtitle>
+      <ion-card-title>
+        ${{ getAvailableBudget() | number}} of ${{ currentMonthStanding.budget | number }}
+      </ion-card-title>
     </ion-card-header>
-    <canvas #paymentsChart width="400" height="400"></canvas>
+    <ion-progress-bar [value]="spentBudgetPercentage"></ion-progress-bar>
 
     <!-- Add Transaction Form -->
     <ion-card>

@@ -1,10 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { MonthStanding } from 'src/app/models/month-standing.model';
 import { BudgetService } from 'src/app/services/budget.service';
 import { BudgetCategory } from 'src/app/enums/budget-category.enum';
-import { Chart } from 'chart.js';
-import * as moment from 'moment/moment';
-import 'chartjs-plugin-labels';
 import { Payment } from 'src/app/models/payment.model';
 
 @Component({
@@ -13,11 +10,9 @@ import { Payment } from 'src/app/models/payment.model';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  @ViewChild('paymentsChart', { static: false }) paymentsChart;
-
-  public monthLabel: string = moment(new Date()).format('MMMM	YYYY');
   public newPayment: Payment = new Payment();
   public currentMonthStanding: MonthStanding;
+  public spentBudgetPercentage: number;
 
   constructor(private budgetService: BudgetService) {
   }
@@ -59,67 +54,23 @@ export class HomeComponent {
     this.newPayment = new Payment();
   }
 
+  public getAvailableBudget(): number {
+    return this.currentMonthStanding.budget -
+      this.currentMonthStanding.getAmountSpentThisMonth();
+  }
+
   private getCurrentlyMonthStanding() {
     this.budgetService.getCurrentMonthStanding()
       .subscribe(x => {
         this.currentMonthStanding = x;
-        this.populateMonthChart();
-      })
-  }
-
-  private populateMonthChart() {
-    new Chart(this.paymentsChart.nativeElement, {
-      type: 'pie',
-      data: {
-        datasets: [{
-          label: 'dollars spent',
-          data: this.getAmountPerCategory(),
-          backgroundColor: this.getBudgetCategoryColors(),
-        }],
-
-        // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: this.getBudgetCategories(),
-      },
-      options: {
-        plugins: {
-          // https://emn178.github.io/chartjs-plugin-labels/samples/demo/
-          labels: [
-            {
-              render: 'value',
-              fontSize: 14,
-              fontStyle: 'bold',
-              fontColor: '#000',
-              position: 'outside',
-            },
-          ],
-        },
-      },
-    });
+        this.spentBudgetPercentage = 1 - this.getAvailableBudget() / this.currentMonthStanding.budget;
+      });
   }
 
   private getBudgetCategories(): string[] {
-    return Object.keys(BudgetCategory)
-      .filter(c => typeof BudgetCategory[c] === 'number');
-  }
-
-  private getBudgetCategoryColors(): string[] {
-    return this.getBudgetCategories()
-      .map(c => this.getBudgetCategoryColor(BudgetCategory[c]));
-  }
-
-  private getAmountPerCategory(): number[] {
-    return this.getBudgetCategories()
-      .map(c => this.getCategoryTotal(BudgetCategory[c]));
-  }
-
-  private getCategoryTotal(category: BudgetCategory): number {
-    if (category === BudgetCategory.Available) {
-      return this.currentMonthStanding.budget - this.currentMonthStanding.payments.reduce((sum, current) => sum + current.amount, 0);
-    }
-
-    return this.currentMonthStanding.payments
-      .filter(p => p.category === category)
-      .reduce((sum, current) => sum + current.amount, 0);
+    return Array.from(new Set(Object.keys(BudgetCategory)
+      .filter(c => typeof BudgetCategory[c] === 'number')
+      .map(c => BudgetCategory.Name(BudgetCategory[c]))));
   }
 
 }
