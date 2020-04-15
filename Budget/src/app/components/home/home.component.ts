@@ -43,6 +43,9 @@ export class HomeComponent {
   }
 
   public addPayment() {
+    if (!this.newPayment.category || !this.newPayment.amount) return;
+    
+    this.newPayment.timeStamp = new Date();
     this.currentMonthStanding.payments.push(this.newPayment);
     this.newPayment = new Payment();
   }
