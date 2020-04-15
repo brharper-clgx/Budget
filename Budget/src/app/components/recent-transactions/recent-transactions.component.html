@@ -1,0 +1,16 @@
+<ion-card class="transactions">
+  <ion-card-header>
+    <ion-card-subtitle>Recent Transactions</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item *ngFor="let payment of sortPayments()">
+        <ion-label>
+          <ion-badge [style.background-color]="getBudgetCategoryColor(payment.category)">
+            {{ getBudgetCategoryName(payment.category) }}</ion-badge>
+          <p>{{ payment.amount | currency }} <span class="time-stamp">{{ payment.timeStamp | momentDate:'l' }}</span></p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

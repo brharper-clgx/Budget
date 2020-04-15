@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 import { MomentDatePipe } from './pipes/moment-date.pipe';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './components/menu/menu.component';
+import { RecentTransactionsComponent } from './components/recent-transactions/recent-transactions.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { MenuComponent } from './components/menu/menu.component';
     HomeComponent,
     HeaderComponent,
     ProfileComponent,
+    RecentTransactionsComponent,
     MomentDatePipe,
   ],
   entryComponents: [

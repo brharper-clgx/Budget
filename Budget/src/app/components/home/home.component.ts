@@ -21,23 +21,6 @@ export class HomeComponent {
     this.getCurrentlyMonthStanding();
   }
 
-  public sortPayments(): Payment[] {
-    if (!this.currentMonthStanding) return [];
-    return this.currentMonthStanding.payments.sort((n1, n2) => {
-      if (n1.timeStamp > n2.timeStamp) return -1;
-      if (n1.timeStamp < n2.timeStamp) return 1;
-      return 0;
-    });
-  }
-
-  public getBudgetCategoryColor(category: BudgetCategory): string {
-    return BudgetCategory.CssColor(category);
-  }
-
-  public getBudgetCategoryName(category: BudgetCategory): string {
-    return BudgetCategory.Name(category);
-  }
-
   public getBudgetCategoryOptions() {
     return this.getBudgetCategories()
       .filter(c => BudgetCategory[c] != BudgetCategory.Available)
