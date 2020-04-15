@@ -14,9 +14,16 @@ import { HeaderComponent } from './components/header/header.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MockBudgetService } from './services/mocks/budget.service.mock';
 import { environment } from 'src/environments/environment';
+import { MomentDatePipe } from './pipes/moment-date.pipe';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HeaderComponent, ProfileComponent],
+  declarations: [
+    AppComponent, 
+    HomeComponent, 
+    HeaderComponent, 
+    ProfileComponent,
+    MomentDatePipe,
+  ],
   entryComponents: [HomeComponent],
   imports: [
     BrowserModule,

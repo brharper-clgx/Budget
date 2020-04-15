@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MonthStanding } from 'src/app/models/month-standing.model';
 import { BudgetService } from 'src/app/services/budget.service';
 import { BudgetCategory } from 'src/app/enums/budget-category.enum';
@@ -26,7 +26,15 @@ export class HomeComponent {
     this.getCurrentlyMonthStanding();
   }
 
-  getCurrentlyMonthStanding() {
+  public getBudgetCategoryColor(category: BudgetCategory): string {
+    return BudgetCategory.CssColor(category);
+  }
+
+  public getBudgetCategoryName(category: BudgetCategory): string {
+    return BudgetCategory.Name(category);
+  }
+
+  private getCurrentlyMonthStanding() {
     this.budgetService.getCurrentMonthStanding()
       .subscribe(x => {
         this.currentMonthStanding = x;
@@ -41,11 +49,11 @@ export class HomeComponent {
         datasets: [{
           label: 'dollars spent',
           data: this.getAmountPerCategory(),
-          backgroundColor: this.colorArray,
+          backgroundColor: this.getBudgetCategoryColors(),
         }],
 
         // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: this.getPaymentCategories(),
+        labels: this.getBudgetCategories(),
       },
       options: {
         plugins: {
@@ -64,16 +72,19 @@ export class HomeComponent {
     });
   }
 
-  private getPaymentCategories(): string[] {
-    var labels = Object.keys(BudgetCategory)
+  private getBudgetCategories(): string[] {
+    return Object.keys(BudgetCategory)
       .filter(c => typeof BudgetCategory[c] === 'number');
-    return labels;
+  }
+
+  private getBudgetCategoryColors(): string[] {
+    return this.getBudgetCategories()
+      .map(c => this.getBudgetCategoryColor(BudgetCategory[c]));
   }
 
   private getAmountPerCategory(): number[] {
-    var amounts = this.getPaymentCategories()
+    return this.getBudgetCategories()
       .map(c => this.getCategoryTotal(BudgetCategory[c]));
-    return amounts;
   }
 
   private getCategoryTotal(category: BudgetCategory): number {
