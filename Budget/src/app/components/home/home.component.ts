@@ -26,6 +26,15 @@ export class HomeComponent {
     this.getCurrentlyMonthStanding();
   }
 
+  public sortPayments(): Payment[] {
+    if (!this.currentMonthStanding) return [];
+    return this.currentMonthStanding.payments.sort((n1, n2) => {
+      if (n1.timeStamp > n2.timeStamp) return -1;
+      if (n1.timeStamp < n2.timeStamp) return 1;
+      return 0;
+    });
+  }
+
   public getBudgetCategoryColor(category: BudgetCategory): string {
     return BudgetCategory.CssColor(category);
   }
@@ -44,7 +53,7 @@ export class HomeComponent {
 
   public addPayment() {
     if (!this.newPayment.category || !this.newPayment.amount) return;
-    
+
     this.newPayment.timeStamp = new Date();
     this.currentMonthStanding.payments.push(this.newPayment);
     this.newPayment = new Payment();

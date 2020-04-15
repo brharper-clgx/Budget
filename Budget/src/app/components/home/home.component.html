@@ -43,7 +43,7 @@
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item *ngFor="let payment of currentMonthStanding.payments">
+          <ion-item *ngFor="let payment of sortPayments()">
             <ion-label>
               <ion-badge [style.background-color]="getBudgetCategoryColor(payment.category)">
                 {{ getBudgetCategoryName(payment.category) }}</ion-badge>
