@@ -22,7 +22,8 @@
       <ion-item>
         <ion-label>Category</ion-label>
         <ion-select placeholder="Select One" name="category" [(ngModel)]="newPayment.category">
-          <ion-select-option *ngFor="let category of getBudgetCategoryOptions()" [value]="category.id">{{category.name}}</ion-select-option>
+          <ion-select-option *ngFor="let category of getBudgetCategoryOptions()" [value]="category.id">{{category.name}}
+          </ion-select-option>
         </ion-select>
       </ion-item>
 
@@ -44,11 +45,9 @@
         <ion-list>
           <ion-item *ngFor="let payment of currentMonthStanding?.payments">
             <ion-label>
-              <ion-text [style.color]="getBudgetCategoryColor(payment.category)">
-                <h3>{{ getBudgetCategoryName(payment.category) }} <span
-                    class="time-stamp">{{ payment.timeStamp | momentDate:'l' }}</span></h3>
-              </ion-text>
-              <p>{{ payment.amount | currency }}</p>
+              <ion-badge [style.background-color]="getBudgetCategoryColor(payment.category)">
+                {{ getBudgetCategoryName(payment.category) }}</ion-badge>
+              <p>{{ payment.amount | currency }} <span class="time-stamp">{{ payment.timeStamp | momentDate:'l' }}</span></p>
             </ion-label>
           </ion-item>
         </ion-list>
