@@ -15,6 +15,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MockBudgetService } from './services/mocks/budget.service.mock';
 import { environment } from 'src/environments/environment';
 import { MomentDatePipe } from './pipes/moment-date.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MomentDatePipe } from './pipes/moment-date.pipe';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
   ],
   providers: [
     StatusBar,

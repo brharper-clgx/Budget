@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<ion-content [fullscreen]="true">
+<ion-content class="content">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Home</ion-title>
@@ -8,11 +8,33 @@
   </ion-header>
 
   <div id="container">
+
     <ion-card-header>
       <ion-card-subtitle>Amount spent this month</ion-card-subtitle>
       <ion-card-title>{{monthLabel}}</ion-card-title>
     </ion-card-header>
     <canvas #paymentsChart width="400" height="400"></canvas>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Add New Transaction</ion-card-subtitle>
+      </ion-card-header>
+      <ion-item>
+        <ion-label>Category</ion-label>
+        <ion-select placeholder="Select One" name="category" [(ngModel)]="newPayment.category">
+          <ion-select-option *ngFor="let category of getBudgetCategoryOptions()" [value]="category.id">{{category.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-input inputmode="decimal" name="amount" clearInput placeholder="$0.00" [(ngModel)]="newPayment.amount">
+        </ion-input>
+      </ion-item>
+
+      <div class="ion-padding">
+        <ion-button expand="block" class="ion-no-margin" (click)="addPayment()">Add</ion-button>
+      </div>
+    </ion-card>
 
     <ion-card *ngIf="currentMonthStanding" class="transactions">
       <ion-card-header>
@@ -23,7 +45,8 @@
           <ion-item *ngFor="let payment of currentMonthStanding?.payments">
             <ion-label>
               <ion-text [style.color]="getBudgetCategoryColor(payment.category)">
-                <h3>{{ getBudgetCategoryName(payment.category) }} <span class="time-stamp">{{ payment.timeStamp | momentDate:'l' }}</span></h3>
+                <h3>{{ getBudgetCategoryName(payment.category) }} <span
+                    class="time-stamp">{{ payment.timeStamp | momentDate:'l' }}</span></h3>
               </ion-text>
               <p>{{ payment.amount | currency }}</p>
             </ion-label>

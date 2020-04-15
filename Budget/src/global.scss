@@ -28,14 +28,13 @@
 ion-menu-button {
     color: var(--ion-color-primary);
   }
-  
+
+  .content {
+    margin-top: 50px;
+  }
+
   #container {
     text-align: center;
-    position: relative;
-    left: 0;
-    right: 0;
-    top: 440px;
-    transform: translateY(-50%);
   }
   
   #container strong {

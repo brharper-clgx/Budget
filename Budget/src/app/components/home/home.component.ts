@@ -5,6 +5,7 @@ import { BudgetCategory } from 'src/app/enums/budget-category.enum';
 import { Chart } from 'chart.js';
 import * as moment from 'moment/moment';
 import 'chartjs-plugin-labels';
+import { Payment } from 'src/app/models/payment.model';
 
 @Component({
   selector: 'app-home',
@@ -15,9 +16,8 @@ export class HomeComponent {
   @ViewChild('paymentsChart', { static: false }) paymentsChart;
 
   public monthLabel: string = moment(new Date()).format('MMMM	YYYY');
-
-  private currentMonthStanding: MonthStanding;
-  private colorArray: string[] = ['#e5e5e5', '#DE5B84', '#35A2EA', '#FFCE56', '#FE777B'];
+  public newPayment: Payment = new Payment();
+  public currentMonthStanding: MonthStanding;
 
   constructor(private budgetService: BudgetService) {
   }
@@ -32,6 +32,19 @@ export class HomeComponent {
 
   public getBudgetCategoryName(category: BudgetCategory): string {
     return BudgetCategory.Name(category);
+  }
+
+  public getBudgetCategoryOptions() {
+    return this.getBudgetCategories()
+      .filter(c => BudgetCategory[c] != BudgetCategory.Available)
+      .map(c => {
+        return { id: BudgetCategory[c], name: c };
+      });
+  }
+
+  public addPayment() {
+    this.currentMonthStanding.payments.push(this.newPayment);
+    this.newPayment = new Payment();
   }
 
   private getCurrentlyMonthStanding() {
