@@ -1,5 +1,6 @@
-export enum PaymentCategory
+export enum BudgetCategory
 {
+    Available,
     Restaurant,
     Grocery,
     Entertainment,

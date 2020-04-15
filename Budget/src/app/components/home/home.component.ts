@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MonthStanding } from 'src/app/models/month-standing.model';
 import { BudgetService } from 'src/app/services/budget.service';
-import { PaymentCategory } from 'src/app/enums/payment-category.enum';
+import { BudgetCategory } from 'src/app/enums/budget-category.enum';
 import { Chart } from 'chart.js';
 import * as moment from 'moment/moment';
 import 'chartjs-plugin-labels';
@@ -11,18 +11,15 @@ import 'chartjs-plugin-labels';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   @ViewChild('paymentsChart', { static: false }) paymentsChart;
 
   public monthLabel: string = moment(new Date()).format('MMMM	YYYY');
-  
+
   private currentMonthStanding: MonthStanding;
-  private colorArray: string[] = ['#DE5B84', '#35A2EA', '#FFCE56', '#FE777B'];
+  private colorArray: string[] = ['#e5e5e5', '#DE5B84', '#35A2EA', '#FFCE56', '#FE777B'];
 
   constructor(private budgetService: BudgetService) {
-  }
-
-  ngOnInit() {
   }
 
   ionViewDidEnter() {
@@ -43,7 +40,7 @@ export class HomeComponent implements OnInit {
       data: {
         datasets: [{
           label: 'dollars spent',
-          data: this.getPaymentsPerCategory(),
+          data: this.getAmountPerCategory(),
           backgroundColor: this.colorArray,
         }],
 
@@ -53,28 +50,37 @@ export class HomeComponent implements OnInit {
       options: {
         plugins: {
           // https://emn178.github.io/chartjs-plugin-labels/samples/demo/
-          labels: {
-            render: 'value',
-            fontSize: 14,
-            fontStyle: 'bold',
-            fontColor: '#fff',
-          },
+          labels: [
+            {
+              render: 'value',
+              fontSize: 14,
+              fontStyle: 'bold',
+              fontColor: '#000',
+              position: 'outside',
+            },
+          ],
         },
       },
     });
   }
 
   private getPaymentCategories(): string[] {
-    return Object.keys(PaymentCategory)
-      .filter(c => typeof PaymentCategory[c] === "number");
+    var labels = Object.keys(BudgetCategory)
+      .filter(c => typeof BudgetCategory[c] === 'number');
+    return labels;
   }
 
-  private getPaymentsPerCategory(): number[] {
-    return this.getPaymentCategories()
-      .map(c => this.getCategoryTotal(PaymentCategory[c]));
+  private getAmountPerCategory(): number[] {
+    var amounts = this.getPaymentCategories()
+      .map(c => this.getCategoryTotal(BudgetCategory[c]));
+    return amounts;
   }
 
-  private getCategoryTotal(category: PaymentCategory): number {
+  private getCategoryTotal(category: BudgetCategory): number {
+    if (category === BudgetCategory.Available) {
+      return this.currentMonthStanding.budget - this.currentMonthStanding.payments.reduce((sum, current) => sum + current.amount, 0);
+    }
+
     return this.currentMonthStanding.payments
       .filter(p => p.category === category)
       .reduce((sum, current) => sum + current.amount, 0);

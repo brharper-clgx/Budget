@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { IBudgetService } from 'src/app/interfaces/ibudget-service';
 import { Observable, of } from 'rxjs';
 import { MonthStanding } from 'src/app/models/month-standing.model';
-import { PaymentCategory } from 'src/app/enums/payment-category.enum';
+import { BudgetCategory } from 'src/app/enums/budget-category.enum';
 
 @Injectable()
 export class MockBudgetService implements IBudgetService {
@@ -11,26 +11,31 @@ export class MockBudgetService implements IBudgetService {
             payments: [
                 {
                     amount: 20,
-                    category: PaymentCategory.Restaurant,
+                    category: BudgetCategory.Restaurant,
+                    timeStamp: new Date(),
                 },
                 {
                     amount: 150,
-                    category: PaymentCategory.Grocery,
+                    category: BudgetCategory.Grocery,
+                    timeStamp: new Date(),
                 },
                 {
                     amount: 40,
-                    category: PaymentCategory.Entertainment,
+                    category: BudgetCategory.Entertainment,
+                    timeStamp: new Date(),
                 },
                 {
                     amount: 50,
-                    category: PaymentCategory.Utility,
+                    category: BudgetCategory.Utility,
+                    timeStamp: new Date(),
                 },
                 {
                     amount: 15,
-                    category: PaymentCategory.Utility,
+                    category: BudgetCategory.Utility,
+                    timeStamp: new Date(),
                 },
             ],
-            income: 1000,
+            budget: 1000,
         } as MonthStanding);
     }
 

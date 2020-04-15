@@ -1,7 +1,8 @@
-import { PaymentCategory } from '../enums/payment-category.enum';
+import { BudgetCategory } from '../enums/budget-category.enum';
 
 export class Payment
 {
     public amount: number;
-    public category: PaymentCategory;
+    public category: BudgetCategory;
+    public timeStamp: Date;
 }
