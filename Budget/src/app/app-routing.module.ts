@@ -16,10 +16,6 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
   },
-  // {
-  //   path: 'folder/:id',
-  //   loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  // }
 ];
 
 @NgModule({

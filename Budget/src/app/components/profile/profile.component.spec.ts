@@ -8,6 +8,10 @@ describe('ProfileComponent', () => {
   let fixture: ComponentFixture<ProfileComponent>;
 
   beforeEach(async(() => {
+    TestBed.overrideTemplate(
+      ProfileComponent,
+      "<html>HTML for the component requires all dependent components to be loaded. Differ this to Feature test.</html>");
+
     TestBed.configureTestingModule({
       declarations: [ ProfileComponent ],
       imports: [IonicModule.forRoot()]
