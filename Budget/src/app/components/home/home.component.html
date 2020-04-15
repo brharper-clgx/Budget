@@ -6,14 +6,14 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
+  <div id="container" class="ion-padding">
     <ion-card>
       <ion-card-header>
         <ion-card-subtitle>Amount spent this month</ion-card-subtitle>
         <ion-card-title>{{monthLabel}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <canvas #barChart></canvas>
+        <canvas #paymentsChart width="400" height="400"></canvas>
       </ion-card-content>
     </ion-card>
   </div>

@@ -14,6 +14,14 @@ export class MockBudgetService implements IBudgetService {
                     category: PaymentCategory.Restaurant,
                 },
                 {
+                    amount: 150,
+                    category: PaymentCategory.Grocery,
+                },
+                {
+                    amount: 40,
+                    category: PaymentCategory.Entertainment,
+                },
+                {
                     amount: 50,
                     category: PaymentCategory.Utility,
                 },
