@@ -25,6 +25,13 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+    color: #ccc;
+  }
+}
+
 ion-menu-button {
     color: var(--ion-color-primary);
   }
@@ -47,6 +54,10 @@ ion-menu-button {
     line-height: 22px;
     color: #8c8c8c;
     margin: 0;
+
+    @media (prefers-color-scheme: dark) {
+      color: #fff;       
+    }
   }
   
   #container a {

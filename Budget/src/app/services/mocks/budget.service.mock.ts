@@ -43,6 +43,10 @@ export class MockBudgetService implements IBudgetService {
         budget: 1500,
     } as MonthStanding;
 
+    isDarkMode(): boolean {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+
     getProfile(): Observable<Profile> {
        return of({
         name: 'Sarah Odom',

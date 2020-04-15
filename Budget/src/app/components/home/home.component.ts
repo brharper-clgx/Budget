@@ -21,7 +21,7 @@ export class HomeComponent {
     this.getCurrentlyMonthStanding();
   }
 
-  public getBudgetCategoryOptions() {
+  public getBudgetCategoryOptions(): any[] {
     return this.getBudgetCategories()
       .filter(c => BudgetCategory[c] != BudgetCategory.Available)
       .map(c => {
@@ -29,7 +29,7 @@ export class HomeComponent {
       });
   }
 
-  public addPayment() {
+  public addPayment(): void {
     if (!this.newPayment.category || !this.newPayment.amount) return;
 
     this.newPayment.timeStamp = new Date();
@@ -42,7 +42,7 @@ export class HomeComponent {
       this.currentMonthStanding.getAmountSpentThisMonth();
   }
 
-  private getCurrentlyMonthStanding() {
+  private getCurrentlyMonthStanding(): void {
     this.budgetService.getCurrentMonthStanding()
       .subscribe(x => {
         this.currentMonthStanding = x;

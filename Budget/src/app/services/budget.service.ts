@@ -6,6 +6,10 @@ import { Profile } from '../models/profile.model';
 
 @Injectable()
 export class BudgetService implements IBudgetService {
+    isDarkMode(): boolean {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    
     getProfile(): Observable<Profile> {
         throw new Error("Method not implemented.");
     }

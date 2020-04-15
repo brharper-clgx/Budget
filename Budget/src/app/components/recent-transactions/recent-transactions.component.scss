@@ -1,4 +1,5 @@
 .transactions {
+
     .time-stamp {
         float: right;
         color: #666666;
@@ -6,5 +7,15 @@
 
     p {
         color: #666666;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .time-stamp {
+            color: #fff;      
+        }
+        
+        p {
+            color: #fff;
+        }
     }
 }

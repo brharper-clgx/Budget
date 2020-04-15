@@ -45,6 +45,11 @@ export class ProfileComponent {
         labels: this.getBudgetCategories(),
       },
       options: {
+        legend: {
+          labels: {
+            fontColor: this.getLegendLabelColor(),
+          }
+        },
         plugins: {
           // https://emn178.github.io/chartjs-plugin-labels/samples/demo/
           labels: [
@@ -52,13 +57,19 @@ export class ProfileComponent {
               render: 'value',
               fontSize: 14,
               fontStyle: 'bold',
-              fontColor: '#000',
+              fontColor: this.getLegendLabelColor(),
               position: 'outside',
+              textMargin: 4,
+              outsidePadding: 4,
             },
           ],
         },
       },
     });
+  }
+
+  private getLegendLabelColor(): string {
+    return this.budgetService.isDarkMode() ? 'white' : 'black';
   }
 
   private getBudgetCategories(): string[] {
