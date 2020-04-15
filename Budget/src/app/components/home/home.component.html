@@ -8,13 +8,14 @@
   </ion-header>
 
   <div id="container">
-
+    <!-- Month's spending pie chart -->
     <ion-card-header>
       <ion-card-subtitle>Amount spent this month</ion-card-subtitle>
       <ion-card-title>{{monthLabel}}</ion-card-title>
     </ion-card-header>
     <canvas #paymentsChart width="400" height="400"></canvas>
 
+    <!-- Add Transaction Form -->
     <ion-card>
       <ion-card-header>
         <ion-card-subtitle>Add New Transaction</ion-card-subtitle>
@@ -26,24 +27,23 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-
       <ion-item>
         <ion-input inputmode="decimal" name="amount" clearInput placeholder="$0.00" [(ngModel)]="newPayment.amount">
         </ion-input>
       </ion-item>
-
       <div class="ion-padding">
         <ion-button expand="block" class="ion-no-margin" (click)="addPayment()">Add</ion-button>
       </div>
     </ion-card>
 
+    <!-- Recent Transactions -->
     <ion-card *ngIf="currentMonthStanding" class="transactions">
       <ion-card-header>
         <ion-card-subtitle>Recent Transactions</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item *ngFor="let payment of currentMonthStanding?.payments">
+          <ion-item *ngFor="let payment of currentMonthStanding.payments">
             <ion-label>
               <ion-badge [style.background-color]="getBudgetCategoryColor(payment.category)">
                 {{ getBudgetCategoryName(payment.category) }}</ion-badge>
