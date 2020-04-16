@@ -5,6 +5,7 @@ import { Chart } from 'chart.js';
 import * as moment from 'moment/moment';
 import 'chartjs-plugin-labels';
 import { BudgetCategory } from 'src/app/enums/budget-category.enum';
+import { Payment } from 'src/app/models/payment.model';
 
 @Component({
   selector: 'app-profile',
@@ -12,10 +13,13 @@ import { BudgetCategory } from 'src/app/enums/budget-category.enum';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent {
-  @ViewChild('paymentsChart', { static: false }) paymentsChart;
+  @ViewChild('currentMonthChart', { static: false }) currentMonthChart;
+  @ViewChild('pastMonthsChart', { static: false }) pastMonthsChart;
 
   public monthLabel: string = moment(new Date()).format('MMMM	YYYY');
   public profile: Profile = new Profile();
+  public pastMonthsToDisplay: number = 3;
+  public pastPayments: Payment[] = [];
 
   constructor(private budgetService: BudgetService) { }
 
@@ -23,16 +27,35 @@ export class ProfileComponent {
     this.getProfile();
   }
 
+  public getBadgeColor(months: number) {
+    if (months == this.pastMonthsToDisplay) return '#50C8FF';
+    return '#969a9b';
+  }
+
+  public setPastMonthsToDisplay(months: number) {
+    this.pastMonthsToDisplay = months;
+    this.getPastMonthsPayments();
+  }
+
   private getProfile() {
     this.budgetService.getProfile()
       .subscribe(x => {
         this.profile = x;
-        this.populateMonthChart();
+        this.populateCurrentMonthChart();
+        this.getPastMonthsPayments();
       });
   }
 
-  private populateMonthChart() {
-    new Chart(this.paymentsChart.nativeElement, {
+  private getPastMonthsPayments() {
+    this.budgetService.getPastMonthsPayments(this.pastMonthsToDisplay)
+      .subscribe(x => {
+        this.pastPayments = x;
+        this.populatePastMonthsChart();
+      });
+  }
+
+  private populateCurrentMonthChart() {
+    new Chart(this.currentMonthChart.nativeElement, {
       type: 'pie',
       data: {
         datasets: [{
@@ -65,6 +88,21 @@ export class ProfileComponent {
           ],
         },
       },
+    });
+  }
+
+  private populatePastMonthsChart() {
+    new Chart(this.pastMonthsChart.nativeElement, {
+      type: 'line',
+      data: {
+        datasets: this.getPastMonthsData(),
+        labels: this.getPastMonthsLabels(),
+      },
+      options: {
+        legend: {
+          display: false,
+        }
+      }
     });
   }
 
@@ -106,6 +144,43 @@ export class ProfileComponent {
     return this.profile.currentMonthStanding.payments
       .filter(p => p.category === category)
       .reduce((sum, current) => sum + current.amount, 0);
+  }
+
+  private getPastMonthsLabels(): string[] {
+    let today = moment();
+    let labels = [];
+    for (let i = this.pastMonthsToDisplay; i > 0; i--) {
+      labels.push(moment().set('month', today.get('month') - i).format('MMMM'));
+    }
+
+    return labels;
+  }
+
+  private getPastMonthsData(): any[] {
+    return this.getBudgetCategories()
+      .map(c => {
+        return {
+          label: BudgetCategory.Name(BudgetCategory[c]),
+          data: this.getPastPaymentsInCategory(BudgetCategory[c]),
+          backgroundColor: this.getBudgetCategoryColor(BudgetCategory[c]),
+          pointColor: this.getBudgetCategoryColor(BudgetCategory[c]),
+          borderColor: this.getBudgetCategoryColor(BudgetCategory[c]),
+          showLine: true,
+          fill: false,
+        };
+      });
+  }
+
+  private getPastPaymentsInCategory(category: BudgetCategory): number[] {
+    let totalPaymentsInMonth = [];
+    let today = moment();
+    for (let i = this.pastMonthsToDisplay; i > 0; i--) {
+      totalPaymentsInMonth.push(this.pastPayments
+        .filter(p => p.category === category && moment(p.timeStamp).get('year') == today.get('year') && moment(p.timeStamp).get('month') == moment(today).get('month') - i)
+        .reduce((sum, current) => sum + current.amount, 0));
+    }
+
+    return totalPaymentsInMonth;
   }
 
 }
