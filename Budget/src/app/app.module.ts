@@ -18,6 +18,8 @@ import { MomentDatePipe } from './pipes/moment-date.pipe';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './components/menu/menu.component';
 import { RecentTransactionsComponent } from './components/recent-transactions/recent-transactions.component';
+import { PastTrendsChartComponent } from './components/past-trends-chart/past-trends-chart.component';
+import { CurrentMonthChartComponent } from './components/current-month-chart/current-month-chart.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { RecentTransactionsComponent } from './components/recent-transactions/re
     HeaderComponent,
     ProfileComponent,
     RecentTransactionsComponent,
+    PastTrendsChartComponent,
+    CurrentMonthChartComponent,
     MomentDatePipe,
   ],
   entryComponents: [

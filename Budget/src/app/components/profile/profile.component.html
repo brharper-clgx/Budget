@@ -7,22 +7,7 @@
   </ion-header>
 
   <div id="container">
-    <!-- Month's spending pie chart -->
-    <ion-card-header>
-      <ion-card-subtitle>Amount spent this month</ion-card-subtitle>
-      <ion-card-title>{{monthLabel}}</ion-card-title>
-    </ion-card-header>
-    <canvas #currentMonthChart width="370" height="370"></canvas>
-
-    <ion-card-header class="trends">
-      <ion-card-title>Past Trends</ion-card-title>
-      <br/>
-      <ion-card-subtitle>
-        <ion-badge [style.background-color]="getBadgeColor(3)" (click)="setPastMonthsToDisplay(3)">3 months</ion-badge>
-        <ion-badge [style.background-color]="getBadgeColor(6)" (click)="setPastMonthsToDisplay(6)">6 months</ion-badge>
-        <ion-badge [style.background-color]="getBadgeColor(12)" (click)="setPastMonthsToDisplay(12)">12 months</ion-badge>
-      </ion-card-subtitle>
-    </ion-card-header>
-    <canvas #pastMonthsChart width="370" height="370"></canvas>
+    <app-current-month-chart #currentMonth></app-current-month-chart>
+    <app-past-trends-chart #pastTrends></app-past-trends-chart>
   </div>
 </ion-content>

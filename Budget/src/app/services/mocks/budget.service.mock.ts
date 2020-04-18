@@ -83,7 +83,7 @@ export class MockBudgetService implements IBudgetService {
                 },
             ]);
         }
-        console.group('past', pastPayments)
+
         return of(pastPayments);
     }
 
